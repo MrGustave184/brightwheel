@@ -47,26 +47,28 @@ if (!function_exists('bw_add_checkout_modal')) {
     }
 }
 
-add_filter( 'woocommerce_order_button_html', 'custom_order_button_html');
+// better to hook into WC jquery events but they are not behaving as expected
+add_filter( 'woocommerce_order_button_html', 'bw_custom_order_button_html');
 
-if (!function_exists('custom_order_button_html')) {
-    function custom_order_button_html($button) {
+if (!function_exists('bw_custom_order_button_html')) {
+    function bw_custom_order_button_html($button) {
 
         if (is_user_logged_in()) {
             return $button;
         }
 
-        $order_button_text = esc_attr(__('Place order', 'woocommerce'));
+        $orderBtnText = esc_attr(__('Place order', 'woocommerce'));
+        $preventDefaultSubmit = true;
 
         $button = <<<BTN
             <input
                 type="submit"
-                onClick="showCheckoutModal(event);"
+                onClick="showCheckoutModal(event, {$preventDefaultSubmit});"
                 class="button alt"
                 name="woocommerce_checkout_place_order"
                 id="place_order"
-                value={$order_button_text}
-                data-value={$order_button_text}
+                value={$orderBtnText}
+                data-value={$orderBtnText}
             />
         BTN;
 

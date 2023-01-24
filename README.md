@@ -11,5 +11,7 @@ The own-shop theme (which is included in the repository) is just for quick setup
 6. Reproduce the workflow from the test
 
 ## Priorities
+
 My top priority was to complete all I could from the functionality. I managed to add some quick UI elements but not all of them. 
-Due to time restriction, I missed some internationalization, validation and sanitization although some was added 
+Due to time restriction, I missed some internationalization, validation and sanitization although some was added.
+Discount is being applied in cart session but didnt had the time to show the fee in UI 

@@ -3,8 +3,8 @@
 namespace src\Api;
 
 defined('ABSPATH') || exit;
-require_once( WC_ABSPATH . 'includes/wc-cart-functions.php' );
-require_once( WC_ABSPATH . 'includes/wc-notice-functions.php' );
+// require_once( WC_ABSPATH . 'includes/wc-cart-functions.php' );
+// require_once( WC_ABSPATH . 'includes/wc-notice-functions.php' );
 
 class DiscountEndpoint
 {
