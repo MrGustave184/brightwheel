@@ -30,8 +30,7 @@ class DiscountEndpoint
 
         return new \WP_REST_Response([
             'res' => 'success',
-            'cart' => WC()->cart,
-            'woo' => $woocommerce
+            'cart' => WC()->cart
         ]);
     }
 
