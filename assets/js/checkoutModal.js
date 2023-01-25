@@ -5,6 +5,10 @@ const createAccountForm = document.getElementById('create-account-form');
 let proceedToPayment = false;
 
 checkoutForm.on('checkout_place_order', function () {
+    if (bw.is_user_logged_in) {
+        return true;
+    }
+
     checkoutModal.show();
     return proceedToPayment;
 });

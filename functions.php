@@ -30,7 +30,8 @@ if (!function_exists('brightw_scripts')) {
         wp_enqueue_script( 'brightw-app-rele', get_theme_file_uri() . '/assets/js/app.js');
 
         wp_localize_script( 'brightw-app-rele', 'bw', [
-            'restUrl' => rtrim(get_rest_url(), '/')
+            'restUrl' => rtrim(get_rest_url(), '/'),
+            'is_user_logged_in' => is_user_logged_in()
         ]);
     }
 }
