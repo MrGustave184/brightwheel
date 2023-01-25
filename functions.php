@@ -4,10 +4,10 @@ defined('ABSPATH') || exit;
 require __DIR__ . '/vendor/autoload.php';
 
 use src\Api\UserEndpoints;
-use src\Api\DiscountEndpoint;
+use src\Library\CheckoutDiscount;
 
 new UserEndpoints();
-new DiscountEndpoint();
+new CheckoutDiscount();
 
 add_action('wp_enqueue_scripts', 'brightw_scripts');
 
@@ -38,40 +38,10 @@ if (!function_exists('brightw_scripts')) {
 add_action('woocommerce_before_checkout_form', 'bw_add_checkout_modal');
 
 // TODO put text in textdomain
-
 if (!function_exists('bw_add_checkout_modal')) {
     function bw_add_checkout_modal()
     { 
         $checkoutModal = file_get_contents(get_theme_file_uri() . '/templates/components/checkoutModal.php');
         echo $checkoutModal;
-    }
-}
-
-// better to hook into WC jquery events but they are not behaving as expected
-add_filter( 'woocommerce_order_button_html', 'bw_custom_order_button_html');
-
-if (!function_exists('bw_custom_order_button_html')) {
-    function bw_custom_order_button_html($button) {
-
-        if (is_user_logged_in()) {
-            return $button;
-        }
-
-        $orderBtnText = esc_attr(__('Place order', 'woocommerce'));
-        $preventDefaultSubmit = true;
-
-        $button = <<<BTN
-            <input
-                type="submit"
-                onClick="showCheckoutModal(event, {$preventDefaultSubmit});"
-                class="button alt"
-                name="woocommerce_checkout_place_order"
-                id="place_order"
-                value={$orderBtnText}
-                data-value={$orderBtnText}
-            />
-        BTN;
-
-        return $button;
     }
 }
