@@ -40,7 +40,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Skip and proccess payment</button>
+                <button type="button" id="skip-discount" class="btn btn-primary">Skip and proccess payment</button>
             </div>
         </div>
     </div>

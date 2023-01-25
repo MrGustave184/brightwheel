@@ -1,26 +1,20 @@
+const checkoutForm = jQuery('form.checkout');
 const checkoutModal = new bootstrap.Modal('#checkoutModal');
+const skipDiscountBtn = document.getElementById('skip-discount');
+const createAccountForm = document.getElementById('create-account-form');
+let proceedToPayment = false;
 
-/**
- * Better to hook into checkout_place_order but is not behaving as expected and
- * have limited time to debug
- */
-// const checkoutForm = jQuery('form.checkout');
+checkoutForm.on('checkout_place_order', function () {
+    checkoutModal.show();
+    return proceedToPayment;
+});
 
-// checkoutForm.on('checkout_place_order', function () {
-//     checkoutModal.show();
-//     return false;
-// });
+skipDiscountBtn.addEventListener('click', () => {
+    proceedToPayment = true;
+    checkoutForm.submit();
+});
 
-function showCheckoutModal(event, prevent) {
-    if (prevent) {
-        event.preventDefault();
-        checkoutModal.show();
-    }
-}
-
-const createAccountBtn = document.getElementById('create-account-form');
-
-createAccountBtn.addEventListener('submit', async (event) => {
+createAccountForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const { username, email, password, checkPassword } = document.getElementById("create-account-form").elements;
 
@@ -38,24 +32,19 @@ createAccountBtn.addEventListener('submit', async (event) => {
         user_login: username.value,
         user_email: email.value,
         user_pass: password.value
-    }).then(async (user) => {
-        console.log(user);
-        checkoutModal.hide();
-
-        // apply discount coupon
-        // Need better validation of user
+    }).then((user) => {
+        // need better validation
         if (!user) {
             return false;
         }
 
-        await bwPostRequest(`${bw.restUrl}/bw/v1/discount`)
-            .then((discount) => {
-                console.log(discount)
-                jQuery(document.body).trigger('update_checkout');
-                const form = document.forms.checkout;
-                let preventDefaultSubmit = false;
-                form.submit(event, preventDefaultSubmit);
-            });
+        proceedToPayment = true;
+
+        jQuery('input[name=trigger_discount]').val(true);
+        jQuery(document.body).trigger('update_checkout');
+
+        checkoutModal.hide();
+        checkoutForm.submit();
     });
 });
 
