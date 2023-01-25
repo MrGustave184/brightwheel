@@ -3,8 +3,8 @@
 The own-shop theme (which is included in the repository) is just for quick setup. All the test code is in the own-shop-child theme
 
 ## How to run the project
-1. In a fresh wordpress installation, install the woocommerce plugin and the own shop theme
-2. Install and activate the own-shop-child theme
+1. In a fresh wordpress installation, install and activate the woocommerce plugin and the own shop theme (provided as own-shop.zip in the root folder)
+2. Install and activate the own-shop-child theme (provided as own-shop-child.zip in the root folder)
 3. In your terminal, navigate to the own-shop-child theme and do a composer install
 4. Go to Woocommerce > settings > accounts & privacy and check "Allow customers to place orders without an account"
 5. Go to Woocommerce > settings > Payments and enable "Cash on delivery" so checkout proccess can be tested
